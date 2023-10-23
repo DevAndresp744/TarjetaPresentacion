@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun BussinesCardImage(){
-    val image = painterResource(id = R.drawable.masterchieftransparent)
+    val image = painterResource(id = R.drawable.masterchief2_0)
     val backGroundColor = Color.Black
 
     Surface(
@@ -88,7 +88,7 @@ fun BussinesCardImage(){
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 0.5.dp),
+                    .padding(top = 20.dp),
                 fontSize = 30.sp
             )
             Text(
@@ -184,7 +184,6 @@ fun BussinesCardDataInput(dataInfo: String, icon: Painter, iconColor:Color, modi
             contentDescription = null,
             modifier = Modifier.size(25.dp),
             tint = iconColor
-
 
         )
         Spacer(modifier = Modifier.width(10.dp)) // Espacio entre el icono y el texto
