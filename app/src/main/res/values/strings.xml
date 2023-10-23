@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TarjetaPresentacion</string>
+    <string name="Name">Andres Pineda</string>
+    <string name="Title">Software developer</string>
+    <string name="PhoneNumber">+34 671 236 295</string>
+    <string name="Email">andresp744@gmail.com</string>
+    <string name="Linkedin">Andres Pineda</string>
+</resources>
