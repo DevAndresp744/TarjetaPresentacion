@@ -1,6 +1,8 @@
 package com.example.tarjetapresentacion
 
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,12 +25,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -37,7 +39,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.graphics.rotationMatrix
 import com.example.tarjetapresentacion.ui.theme.TarjetaPresentacionTheme
 
 class MainActivity : ComponentActivity() {
@@ -62,9 +63,6 @@ class MainActivity : ComponentActivity() {
 fun BussinesCardImage(){
     val image = painterResource(id = R.drawable.masterchieftransparent)
     val wallpaper = painterResource(id = R.drawable.halowallpaper)
-    val linkedinUrl = "https://www.linkedin.com/in/andres-pineda-106b3820a/"
-
-
 
     Box {
         Image(
@@ -136,11 +134,11 @@ fun BussinesCardImage(){
                     .padding(start = 40.dp, end = 40.dp)
 
             ){
-                BussinesCardDataInput(
-                    dataInfo = stringResource(id = R.string.PhoneNumber),
-                    icon = painterResource(id = R.drawable.icons8_whatsapp_48),
-                    iconColor = Color.Unspecified
-                )
+               BussinesCardDataInput(
+                   dataInfo = stringResource(id = R.string.PhoneNumber),
+                   icon = painterResource(id = R.drawable.icons8_whatsapp_48),
+                   iconColor = Color.Unspecified,
+                   )
             }
             Row (
                 modifier = Modifier
@@ -151,24 +149,23 @@ fun BussinesCardImage(){
                 BussinesCardDataInput(
                     dataInfo = stringResource(id = R.string.Email),
                     icon = painterResource(id = R.drawable.gmail_29991),
-                    iconColor = Color.Unspecified )
+                    iconColor = Color.Unspecified)
             }
 
-            //perfil de linkedin
+            // perfil de linkedin
             Row (
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 40.dp, end = 40.dp)
-                    .clickable {
 
-                    }
 
             ) {
-                BussinesCardDataInput(
-                    dataInfo = stringResource(R.string.Linkedin),
-                    icon = painterResource(id = R.drawable.icons8_linkedin_48),
-                    iconColor = Color.Unspecified)
-
+               BussinesCardDataInput(
+                   dataInfo = stringResource(id = R.string.Linkedin),
+                   icon = painterResource(id = R.drawable.icons8_linkedin_48),
+                   iconColor = Color.Unspecified,
+                   linkUrl = stringResource(R.string.LinkedinUrl)
+               )
             }
 
             // Iconos portafolio
@@ -182,6 +179,7 @@ fun BussinesCardImage(){
                     fontStyle = FontStyle.Italic
                 )
             }
+
             Spacer(modifier = Modifier.height(10.dp))
             Row {
                 Icon(painter = painterResource(id = R.drawable.icons8_kotlin_48),
@@ -218,18 +216,12 @@ fun BussinesCardImage(){
                     tint= Color.Unspecified)
             }
         }
-
-
-
     }
 }
 
-
-
-
 @Composable
-fun BussinesCardDataInput(dataInfo: String, icon: Painter, iconColor:Color, modifier: Modifier = Modifier) {
-
+fun BussinesCardDataInput(dataInfo: String, icon: Painter, iconColor:Color, modifier: Modifier = Modifier, linkUrl: String?=null) {
+    val context = LocalContext.current
    //informacion
 
         Icon(
@@ -239,18 +231,23 @@ fun BussinesCardDataInput(dataInfo: String, icon: Painter, iconColor:Color, modi
             tint = iconColor
 
         )
+    val onClick: () -> Unit = {
+        val intent = Intent(Intent.ACTION_VIEW,
+            Uri.parse(linkUrl))
+        context.startActivity(intent)
+    }
         Spacer(modifier = Modifier.width(8.dp)) // Espacio entre el icono y el texto
         Text(
             text = dataInfo,
             fontSize = 23.sp,
             color = Color.White,
             textAlign = TextAlign.Center,
-            fontStyle = FontStyle.Italic
+            fontStyle = FontStyle.Italic,
 
+            modifier = Modifier
+                .clickable { if (linkUrl != null ) onClick() }
         )
-
 }
-
 
 @Preview(showBackground = true)
 @Composable
