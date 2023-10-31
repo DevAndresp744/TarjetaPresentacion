@@ -245,7 +245,7 @@ fun BussinesCardDataInput(dataInfo: String, icon: Painter, iconColor:Color, modi
             fontStyle = FontStyle.Italic,
 
             modifier = Modifier
-                .clickable { if (linkUrl != null ) onClick() }
+                .clickable { if (linkUrl != null) onClick() }
         )
 }
 
