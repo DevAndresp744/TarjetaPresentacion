@@ -1,11 +1,13 @@
 package com.example.tarjetapresentacion
 
-import android.os.Bundle
 
+import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,19 +23,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.rotationMatrix
 import com.example.tarjetapresentacion.ui.theme.TarjetaPresentacionTheme
 
 class MainActivity : ComponentActivity() {
@@ -56,19 +60,27 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun BussinesCardImage(){
-    val image = painterResource(id = R.drawable.masterchief2_0)
-    val backGroundColor = Color.Black
+    val image = painterResource(id = R.drawable.masterchieftransparent)
+    val wallpaper = painterResource(id = R.drawable.halowallpaper)
+    val linkedinUrl = "https://www.linkedin.com/in/andres-pineda-106b3820a/"
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = Color.Black
-    ){
 
+
+    Box {
+        Image(
+            painter = wallpaper,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxHeight()
+                .fillMaxWidth(),
+            alpha = 10F
+        )
+        //Columna 1
         Column (
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 400.dp, start = 10.dp, end = 10.dp, top = 100.dp),
-
+                .padding(bottom = 400.dp, start = 10.dp, end = 10.dp, top = 70.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
 
@@ -76,10 +88,10 @@ fun BussinesCardImage(){
             Image(
                 painter = image,
                 contentDescription = null,
-                contentScale = ContentScale.None,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .size(170.dp)
                     .padding(top = 1.dp)
+
             )
             Text(
                 text = stringResource(R.string.Name),
@@ -89,7 +101,8 @@ fun BussinesCardImage(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp),
-                fontSize = 30.sp
+                fontSize = 45.sp,
+                fontStyle = FontStyle.Italic
             )
             Text(
                 text = stringResource(R.string.Title),
@@ -99,11 +112,14 @@ fun BussinesCardImage(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 0.5.dp),
-                fontSize = 25.sp
+                fontSize = 35.sp,
+                fontStyle = FontStyle.Italic
             )
 
 
         }
+
+        // Columna 2
         Column (
             modifier = Modifier
                 .fillMaxSize()
@@ -114,65 +130,102 @@ fun BussinesCardImage(){
 
         ){
 
-            Row{
+            Row (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 40.dp, end = 40.dp)
+
+            ){
                 BussinesCardDataInput(
                     dataInfo = stringResource(id = R.string.PhoneNumber),
                     icon = painterResource(id = R.drawable.icons8_whatsapp_48),
                     iconColor = Color.Unspecified
                 )
             }
-            Row {
+            Row (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 40.dp, end = 40.dp)
+
+            ) {
                 BussinesCardDataInput(
                     dataInfo = stringResource(id = R.string.Email),
                     icon = painterResource(id = R.drawable.gmail_29991),
                     iconColor = Color.Unspecified )
             }
-            Row {
+
+            //perfil de linkedin
+            Row (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 40.dp, end = 40.dp)
+                    .clickable {
+
+                    }
+
+            ) {
                 BussinesCardDataInput(
                     dataInfo = stringResource(R.string.Linkedin),
                     icon = painterResource(id = R.drawable.icons8_linkedin_48),
                     iconColor = Color.Unspecified)
+
             }
 
             // Iconos portafolio
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(40.dp))
+            Row {
+                Text(
+                    text = stringResource(R.string.Skills),
+                    color = Color.White,
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontStyle = FontStyle.Italic
+                )
+            }
+            Spacer(modifier = Modifier.height(10.dp))
             Row {
                 Icon(painter = painterResource(id = R.drawable.icons8_kotlin_48),
                     contentDescription = null,
                     modifier = Modifier.size(45.dp),
                     tint= Color.Unspecified)
 
-                Spacer(modifier = Modifier.width(20.dp)) // Espacio entre el icono y el texto
+                Spacer(modifier = Modifier.width(21.dp)) // Espacio entre el icono y el texto
                 Icon(painter = painterResource(
                     id = R.drawable.icons8_logotipo_de_java_coffee_cup_48),
                     contentDescription = null,
                     modifier = Modifier.size(45.dp),
                     tint= Color.Unspecified)
 
-                Spacer(modifier = Modifier.width(20.dp)) // Espacio entre el icono y el texto
+                Spacer(modifier = Modifier.width(21.dp)) // Espacio entre el icono y el texto
                 Icon(painter = painterResource(
                     id = R.drawable.icons8_mysql_48),
                     contentDescription = null,
                     modifier = Modifier.size(45.dp),
                     tint= Color.Unspecified)
 
-                Spacer(modifier = Modifier.width(20.dp)) // Espacio entre el icono y el texto
+                Spacer(modifier = Modifier.width(21.dp)) // Espacio entre el icono y el texto
                 Icon(painter = painterResource(id = R.drawable.icons8_mongodb_a_cross_platform_document_oriented_database_program_24),
                     contentDescription = null,
                     modifier = Modifier.size(45.dp),
-                    tint= Color.Unspecified)
+                    tint= Color.Unspecified
 
-                Spacer(modifier = Modifier.width(20.dp)) // Espacio entre el icono y el texto
+                )
+
+                Spacer(modifier = Modifier.width(21.dp)) // Espacio entre el icono y el texto
                 Icon(painter = painterResource(id = R.drawable.github_mark_white),
                     contentDescription = null,
                     modifier = Modifier.size(45.dp),
                     tint= Color.Unspecified)
             }
         }
+
+
+
     }
-
-
 }
+
+
+
 
 @Composable
 fun BussinesCardDataInput(dataInfo: String, icon: Painter, iconColor:Color, modifier: Modifier = Modifier) {
@@ -186,16 +239,15 @@ fun BussinesCardDataInput(dataInfo: String, icon: Painter, iconColor:Color, modi
             tint = iconColor
 
         )
-        Spacer(modifier = Modifier.width(10.dp)) // Espacio entre el icono y el texto
+        Spacer(modifier = Modifier.width(8.dp)) // Espacio entre el icono y el texto
         Text(
             text = dataInfo,
             fontSize = 23.sp,
             color = Color.White,
             textAlign = TextAlign.Center,
+            fontStyle = FontStyle.Italic
 
         )
-
-
 
 }
 
