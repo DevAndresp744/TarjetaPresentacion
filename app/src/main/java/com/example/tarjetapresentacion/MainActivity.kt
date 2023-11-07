@@ -1,6 +1,7 @@
 package com.example.tarjetapresentacion
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -128,6 +129,7 @@ fun BussinesCardImage(){
 
         ){
 
+            //numero de teléfono
             Row (
                 modifier = Modifier
                     .fillMaxWidth()
@@ -138,8 +140,11 @@ fun BussinesCardImage(){
                    dataInfo = stringResource(id = R.string.PhoneNumber),
                    icon = painterResource(id = R.drawable.icons8_whatsapp_48),
                    iconColor = Color.Unspecified,
+                   linkUrl = stringResource(R.string.whatsapp)
                    )
             }
+
+            //correo electronico
             Row (
                 modifier = Modifier
                     .fillMaxWidth()
@@ -149,10 +154,12 @@ fun BussinesCardImage(){
                 BussinesCardDataInput(
                     dataInfo = stringResource(id = R.string.Email),
                     icon = painterResource(id = R.drawable.gmail_29991),
-                    iconColor = Color.Unspecified)
+                    iconColor = Color.Unspecified,
+                    linkUrl = stringResource(R.string.correoElectronicoPara)
+                )
             }
 
-            // perfil de linkedin
+            // perfíl de linkedin
             Row (
                 modifier = Modifier
                     .fillMaxWidth()
@@ -176,7 +183,9 @@ fun BussinesCardImage(){
                     color = Color.White,
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
-                    fontStyle = FontStyle.Italic
+                    fontStyle = FontStyle.Italic,
+
+
                 )
             }
 
@@ -218,6 +227,7 @@ fun BussinesCardImage(){
         }
     }
 }
+
 
 @Composable
 fun BussinesCardDataInput(dataInfo: String, icon: Painter, iconColor:Color, modifier: Modifier = Modifier, linkUrl: String?=null) {
